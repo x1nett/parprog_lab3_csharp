@@ -1,28 +1,27 @@
-﻿using System;
+using System;
 using System.Threading;
 
-namespace ProducerConsumerMulti
+namespace ProducerConsumerArray
 {
     public class Producer
     {
         private readonly int id;
-        private readonly int itemCount;
+        private readonly string[] items;
         private readonly Storage storage;
 
-        public Producer(int id, int itemCount, Storage storage)
+        public Producer(int id, string[] items, Storage storage)
         {
             this.id = id;
-            this.itemCount = itemCount;
+            this.items = items;
             this.storage = storage;
         }
 
         public void Run()
         {
-            for (int i = 0; i < itemCount; i++)
+            foreach (string item in items)
             {
-                string item = $"Item_P{id}_{i}";
                 storage.Add(item, id);
-                Thread.Sleep(200); 
+                Thread.Sleep(200);
             }
         }
     }
