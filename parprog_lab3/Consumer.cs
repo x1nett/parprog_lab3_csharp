@@ -1,27 +1,27 @@
-﻿using System;
+using System;
 using System.Threading;
 
-namespace ProducerConsumerMulti
+namespace ProducerConsumerArray
 {
     public class Consumer
     {
         private readonly int id;
-        private readonly int itemCount;
+        private readonly string[] buffer;
         private readonly Storage storage;
 
         public Consumer(int id, int itemCount, Storage storage)
         {
             this.id = id;
-            this.itemCount = itemCount;
+            buffer = new string[itemCount];
             this.storage = storage;
         }
 
         public void Run()
         {
-            for (int i = 0; i < itemCount; i++)
+            for (int i = 0; i < buffer.Length; i++)
             {
-                storage.Remove(id);
-                Thread.Sleep(500); 
+                buffer[i] = storage.Take(id);
+                Thread.Sleep(500);
             }
         }
     }
